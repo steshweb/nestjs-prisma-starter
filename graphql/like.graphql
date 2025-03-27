@@ -1,0 +1,23 @@
+query GetLikesForPost($postId: String!) {
+  getLikes(postId: $postId) {
+    ...LikeData
+  }
+}
+
+mutation CreateLike($postId: String!) {
+  createLike(postId: $postId) {
+    ...LikeData
+  }
+}
+
+mutation DeleteLike($likeId: String!) {
+  deleteLike(likeId: $likeId)
+}
+
+fragment LikeData on Like {
+  id
+  postId
+  authorId
+  createdAt
+  updatedAt
+}
