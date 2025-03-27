@@ -12,6 +12,7 @@ Table User {
   lastname String
   posts Post [not null]
   role Role [not null]
+  likes Like [not null]
 }
 
 Table Post {
@@ -23,6 +24,19 @@ Table Post {
   content String
   author User
   authorId String
+  likes Like [not null]
+}
+
+Table Like {
+  id String [pk]
+  post Post [not null]
+  postId String [not null]
+  author User [not null]
+  authorId String [not null]
+
+  indexes {
+    (postId, authorId) [unique]
+  }
 }
 
 Enum Role {
@@ -31,3 +45,7 @@ Enum Role {
 }
 
 Ref: Post.authorId > User.id
+
+Ref: Like.postId > Post.id
+
+Ref: Like.authorId > User.id
